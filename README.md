@@ -10,6 +10,7 @@ https://github.com/haust-lyb/signature/files/6301170/signature-0.0.1-SNAPSHOT.ja
 或者https://github.com/haust-lyb/signature/issues/1
 
 ## 手机端签字版效果图（手机端默认横屏操作）：
+打开手机访问http://[yourhost]/signature/index?uuid=test1234（注意uuid的值），获取签字板页面
 ![image](https://user-images.githubusercontent.com/23397828/114495785-49d65780-9c51-11eb-9d0c-d756a3cd65cf.png)
 
 ## 签字后如何获取签字图片？
