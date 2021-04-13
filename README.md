@@ -14,8 +14,8 @@ https://github.com/haust-lyb/signature/files/6301170/signature-0.0.1-SNAPSHOT.ja
 
 ## 签字后如何获取签字图片？
 首先，签字版页面需要附带一个唯一的UUID（随机字符串）
-例如：http://[yourhost]/signature/index?uuid=1234
+例如：http://[yourhost]/signature/index?uuid=test1234
 从该地址进行签名并提交后，您的签字内容即和uuid=1234进行了一对一的绑定关系，之后，便可以通过绑定关系获取签字的base64内容
-例如：获取签字内容地址：http://[yourhost]/signature/getData?uuid=1234
+例如：获取签字内容地址：http://[yourhost]/signature/getData?uuid=test1234
 
 ![image](https://user-images.githubusercontent.com/23397828/114496554-c6b60100-9c52-11eb-9553-b8deca0a5d8b.png)
