@@ -25,7 +25,6 @@ public class CoreController {
         return path+".html";
     }
 
-
     @RequestMapping({"/submit"})
     @ResponseBody
     public HashMap setSignPic(String data, String uuid) {
