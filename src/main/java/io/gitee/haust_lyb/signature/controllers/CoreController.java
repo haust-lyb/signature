@@ -1,5 +1,6 @@
 package io.gitee.haust_lyb.signature.controllers;
 
+import io.gitee.haust_lyb.signature.base.SinoBaseResDTO;
 import io.gitee.haust_lyb.signature.services.CoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,7 @@ public class CoreController {
 
     @RequestMapping({"/submit"})
     @ResponseBody
-    public HashMap setSignPic(String data, String uuid) {
+    public SinoBaseResDTO<Object> setSignPic(String data, String uuid) {
         return coreService.setSignPic(data,uuid);
     }
 

@@ -1,10 +1,11 @@
 package io.gitee.haust_lyb.signature.services;
 
-import java.util.HashMap;
+import io.gitee.haust_lyb.signature.base.SinoBaseResDTO;
+
 
 public interface CoreService {
 
-    HashMap setSignPic(String data, String uuid);
+    SinoBaseResDTO<Object> setSignPic(String data, String uuid);
 
     String getData(String uuid);
 
