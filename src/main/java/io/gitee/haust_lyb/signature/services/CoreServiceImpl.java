@@ -25,4 +25,5 @@ public class CoreServiceImpl implements CoreService{
     public String getData(String uuid) {
         return (this.timedCache.get(uuid) == null) ? "" : this.timedCache.get(uuid).toString();
     }
+
 }
