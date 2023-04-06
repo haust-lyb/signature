@@ -6,34 +6,18 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="/jquery.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-    <title>调用签字版Demo</title>
+    <script src="/vue.js"></script>
+    <title>usage demo</title>
 </head>
 <body>
 <div id="myform">
-
-
-    <p style="color: lightgray;">{{signKey}}</p>
-    <br>
-
+    <input v-model="signKey"><br>
     <div>
-<!--        <label>审批结论:</label>-->
-<!--        <input type="text" placeholder="请输入审核结论">-->
-        <br>
-        <br>
-<!--        <label>签名:</label>-->
-        <!--        <img :src="getSignImg()" alt="">-->
-        <img style="width:200px;" :src="signImg" alt="">
-        <br>
-        <button @click="toSign">扫码签名</button>
-        <button @click="getSignImg">获取签名</button>
-        <br>
-        <br>
-<!--        <button>提交审核</button>-->
+        <img style="width:200px;" :src="signImg" alt=""><br>
+        <button @click="openSign('http://localhost:1994/api/getQrCode/' + signKey)">扫码签名</button>
     </div>
 </div>
 <script>
-
     new Vue({
         el: "#myform",
         data: {
@@ -41,24 +25,36 @@
             signImg: "/noimg.jpg"
         },
         mounted: function () {
-            this.signKey = "asdfasd";
+            // Unique, not repeated, for each signature
+            // 唯一，不重复，对用每一个签名
+            this.signKey = "0bbc1108-5f18-4971-b2d4-88939c536ff5";
+            // 监听打开的子窗口的数据回传事件
+            window.addEventListener('message', this.ProcessChildMsg)
         },
         methods: {
-            toSign: function () {
-                window.open("http://localhost:1994/api/getQrCode/" + this.signKey, "_signQrCode")
+            // 扫码签名窗口获取到签字后的动作
+            ProcessChildMsg(msg) {
+                console.log(msg)
+                if (msg && msg.data && msg.data.code === 0){
+                    this.signImg = msg.data.base64
+                }
             },
-            getSignImg() {
-                var that = this;
-                $.ajax("/getImg/" + this.signKey, {
-                    type: "GET",
-                    success: function (res) {
-                        that.signImg = res;
-                        // var img = document.createElement("img")
-                        // img.src=res
-                        // document.body.append(img);
-                    }
-                });
-            }
+            // 打开签字窗口的方法
+            openSign: function (signServerUrl, name, iWidth, iHeight) {
+                // signServerUrl 签名服务地址
+                // name 窗口名称，可为空
+                // iWidth // 弹出窗口的宽度
+                // iHeight; // 弹出窗口的高度
+                name = name || "sign_window"
+                iWidth = iWidth || 500
+                iHeight = iHeight || 300
+                // window.screen.height获得屏幕的高，window.screen.width获得屏幕的宽
+                var iTop = (window.screen.height - 30 - iHeight) / 2; // 获得窗口的垂直位置;
+                var iLeft = (window.screen.width - 10 - iWidth) / 2; // 获得窗口的水平位置;
+                var sign_window = window.open(signServerUrl, name, 'height=' + iHeight + ',innerHeight=' + iHeight
+                    + ',width=' + iWidth + ',innerWidth=' + iWidth + ',top=' + iTop + ',left=' + iLeft
+                    + ',toolbar=no,menubar=no,scrollbars=auto,resizeable=no,location=no,status=no');
+            },
         }
     })
 </script>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>signature</title>
+    <script src="/jquery.min.js"></script>
+    <script src="/qrcode.min.js"></script>
+</head>
+<body>
+请打开手机（微信、支付宝或浏览器等），扫下方二维码签字
+<br>
+<hr>
+<div style="display: flex;justify-content: center;">
+    <div id="qrcode"></div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "http://192.168.31.113:8080/?signKey=[[${signKey}]]",
+            width: 200,
+            height: 200,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+        window.setInterval(function () {
+            $.ajax({
+                url: "/api/hasSubmit/[[${signKey}]]",
+                method: "GET",
+                async: false,
+                success: function (res) {
+                    console.log("res", res);
+                    if (res && res.indexOf("success") != -1) {
+                        $.ajax({
+                            url: "/api/getData/[[${signKey}]]",
+                            method: "GET",
+                            async: false,
+                            success: function (res) {
+                                console.log("res", res);
+                                if (res && res.indexOf("pic not found") != -1) {
+                                    var signData = {base64: "", code: -1, msg: "error"}
+                                    window.opener.postMessage(signData, "*"); // 这里一般不写’*‘，而只写可信的源
+                                    window.close();
+                                } else {
+                                    var signData = {base64: res, code: 0, msg: "error"}
+                                    window.opener.postMessage(signData, "*"); // 这里一般不写’*‘，而只写可信的源
+                                    window.close();
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        }, 1500)
+    })
+</script>
+</body>
+</html>

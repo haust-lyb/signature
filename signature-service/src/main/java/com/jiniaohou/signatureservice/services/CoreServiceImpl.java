@@ -1,20 +1,13 @@
 package com.jiniaohou.signatureservice.services;
 
 import cn.hutool.cache.impl.TimedCache;
-import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.extra.qrcode.QrCodeUtil;
-import cn.hutool.extra.qrcode.QrConfig;
-import cn.hutool.http.HttpUtil;
-import cn.hutool.poi.excel.ExcelUtil;
 import com.jiniaohou.signatureservice.base.SignDataDto;
 import com.jiniaohou.signatureservice.base.SinoBaseResDTO;
 import com.jiniaohou.signatureservice.base.StatusEnum;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletResponse;
-import java.awt.*;
 import java.io.IOException;
 
 
@@ -34,20 +27,24 @@ public class CoreServiceImpl implements CoreService {
     }
 
     public String getData(String signKey) {
-        return (this.timedCache.get(signKey) == null) ? "查无此图" : this.timedCache.get(signKey).toString();
+        if (this.timedCache.get(signKey) == null) {
+            return "pic not found";
+        } else {
+            String res = this.timedCache.get(signKey).toString();
+            this.timedCache.remove(signKey);
+            return res;
+        }
     }
 
 
     @Override
-    public void getQrCode(String signKey, HttpServletResponse response) throws IOException {
-        ServletOutputStream outputStream = response.getOutputStream();
-        QrConfig config = new QrConfig(300, 300);
-        // 设置边距，既二维码和背景之间的边距
-        config.setMargin(3);
-        // 设置前景色，既二维码颜色（青色）
-        config.setForeColor(Color.CYAN.getRGB());
-        // 设置背景色（灰色）
-        config.setBackColor(Color.GRAY.getRGB());
-        QrCodeUtil.generate("http://192.168.31.113:8080?signKey="+signKey, config, ImgUtil.IMAGE_TYPE_PNG, outputStream);
+    public String getQrCode(String signKey, Model model) throws IOException {
+        model.addAttribute("signKey", signKey);
+        return "qrcode";
+    }
+
+    @Override
+    public String hasSubmit(String signKey) {
+        return (this.timedCache.get(signKey) == null) ? "pic not found" : "success";
     }
 }

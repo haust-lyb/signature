@@ -17,6 +17,8 @@
 
     <div v-if="!hengping" class="warning">
       请在横屏模式下使用
+      <br>
+      Please use it in landscape mode
     </div>
   </div>
 </template>
@@ -77,10 +79,12 @@ export default {
     },
     submit: function () {
       if (this.signaturePad.isEmpty()) {
-        alert("请签名后提交");
+        this.$alert('请先完成签名再提交', '提示', {
+          confirmButtonText: '好的'
+        });
       } else {
         this.signaturePadData = this.signaturePad.toData();
-        const dataURL = this.canvas.toDataURL("image/png", 1); //可选取多种模式
+        const dataURL = this.canvas.toDataURL("image/png", 1); // 可选取多种模式
         this.$emit("onSubmit",dataURL)
       }
     },
@@ -126,6 +130,7 @@ export default {
 
 .warning {
   z-index: 999;
+  color: black;
   font-weight: bold;
   font-size: 20px;
   position: fixed;
