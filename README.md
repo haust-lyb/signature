@@ -33,10 +33,9 @@ The original reason for creating this project was that a certain project of the 
 
 ## Install
 
-- with Docker
+### Install with Docker
 
-### docker compose
-1、创建如下目录结构和文件
+1、创建根目录app,并在app/下创建如下目录结构和文件
 
 ![img2.png](img2.png)
 
@@ -104,6 +103,9 @@ http {
 ```
 
 3、使用docker compose启动
+
+进入app/文件夹，使用docker compose启动服务
+
 ```shell
 docker compose up -d
 ```
@@ -113,7 +115,7 @@ docker compose up -d
 http://127.0.0.1:8090/?signKey=asdfasdf
 
 
-- build from source
+### build from source
 
 ```shell
 coming soon ...
@@ -121,7 +123,7 @@ coming soon ...
 
 ## Usage
 
-参考[springboot-demo](https://github.com/haust-lyb/signature/tree/main/springboot-demo)
+参考 [springboot-demo](https://github.com/haust-lyb/signature/tree/main/springboot-demo)
 
 ## API
 
