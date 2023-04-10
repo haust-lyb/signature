@@ -48,7 +48,7 @@ in editing...
 ## Usage
 
 ```
-
+in editing...
 ```
 
 ## API
@@ -67,4 +67,4 @@ Small note: If editing the README, please conform to the [standard-readme](https
 
 ## License
 
-Apache-2.0 license © 2023 haustlyb
+[Apache-2.0 license](https://github.com/haust-lyb/signature/blob/main/LICENSE) © 2023 [haustlyb](https://github.com/haust-lyb)
