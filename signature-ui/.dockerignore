@@ -1,0 +1,7 @@
+*
+!/public
+!/src
+!/.env
+!/index.html
+!/vite.config.js
+!/package*.json

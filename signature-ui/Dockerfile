@@ -1,8 +1,11 @@
-FROM node:latest
+FROM --platform=linux/amd64 node:16 AS ui-build
 WORKDIR /app
-COPY package.json .
+COPY ./package*.json ./
 RUN npm install
-COPY . .
+COPY . ./
 RUN npm run build
 
-CMD ["cp", "-r", "dist", "/output"]
+FROM nginx:stable-alpine as prod-build
+COPY --from=ui-build /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
