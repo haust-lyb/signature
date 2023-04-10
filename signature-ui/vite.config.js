@@ -15,7 +15,7 @@ export default defineConfig(({command, mode}) => {
             port: 8080,
             host: '0.0.0.0',
             proxy: {
-                '/api': {
+                '/signature': {
                     target: env.server_baseurl,
                     changeOrigin: true, //是否允许跨域
                     // 将api的地址，替换成空
