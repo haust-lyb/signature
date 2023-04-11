@@ -1,18 +1,23 @@
 version: "3"
 services:
   sign-api:
-    image: liyibo888/signature-api:v1
+    image: liyibo888/signature-api:v2
     healthcheck:
-      test: "curl --fail --silent localhost:1994/signature | grep signature || exit 1"
+      test: "curl --fail --silent localhost:1994/signature/ | grep signature || exit 1"
       interval: 20s
       timeout: 5s
       retries: 5
   sign-ui:
-    image: liyibo888/signature-ui:v1
+    image: liyibo888/signature-ui:v2
+    healthcheck:
+      test: "curl --fail --silent localhost | grep body || exit 1"
+      interval: 20s
+      timeout: 5s
+      retries: 5
   nginx:
     depends_on:
-      - sign-ui
       - sign-api
+      - sign-ui
     image: nginx
     ports:
       - 8090:80

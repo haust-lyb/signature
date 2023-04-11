@@ -113,7 +113,8 @@ export default {
 
 .signature-pad-container {
   /*background: dodgerblue;*/
-  background: url("../assets/paperbg.png");
+  background: url("../assets/paperbg.png") no-repeat;
+  background-size: cover;
   height: calc(100vh - 100px);
   width: 80vw;
 }
