@@ -5,14 +5,21 @@ import cn.hutool.core.util.StrUtil;
 import com.jiniaohou.signatureservice.base.SignDataDto;
 import com.jiniaohou.signatureservice.base.SinoBaseResDTO;
 import com.jiniaohou.signatureservice.base.StatusEnum;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.io.IOException;
 
-
 @Service
 public class CoreServiceImpl implements CoreService {
+
+    @Value("${server.servlet.context-path}")
+    private String applicationContextPath;
+
+    @Value("${server.url}")
+    private String serverUrl;
+
 
     TimedCache timedCache = new TimedCache(300000L);
 
@@ -40,6 +47,8 @@ public class CoreServiceImpl implements CoreService {
     @Override
     public String getQrCode(String signKey, Model model) throws IOException {
         model.addAttribute("signKey", signKey);
+        model.addAttribute("serverUrl", serverUrl);
+        model.addAttribute("applicationContextPath", applicationContextPath);
         return "qrcode";
     }
 

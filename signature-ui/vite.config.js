@@ -1,4 +1,4 @@
-import {defineConfig, loadEnv} from 'vite'
+import {build, defineConfig, loadEnv} from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
@@ -9,6 +9,18 @@ export default defineConfig(({command, mode}) => {
     console.log(env.auth)
     // console.log(import.meta.env.MODE)
     return {
+        build:{
+            rollupOptions: {
+                output: {
+                    // 入口文件名
+                    entryFileNames: 'assets/[name].js',
+                    // 块文件名
+                    chunkFileNames: 'assets/[name]-[hash].js',
+                    // 资源文件名 css 图片等等
+                    assetFileNames: 'assets/[name]-[hash]-balabala.[ext]'
+                }
+            }
+        },
         // vite config
         server: {
             open: true,
