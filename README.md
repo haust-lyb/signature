@@ -35,7 +35,7 @@ The original reason for creating this project was that a certain project of the 
 
 ### Install with Docker Compose
 
-参考：https://github.com/haust-lyb/signature/tree/main/signautre-docker-compose
+参考：https://github.com/haust-lyb/signature/tree/main/signature-docker-compose
 
 下载signature-docker-compose文件夹，并cd进入该文件夹，执行一下命令启动
 ```shell
