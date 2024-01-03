@@ -54,7 +54,8 @@ coming soon ...
 
 ## Usage
 
-参考 [a-springboot-application](https://github.com/haust-lyb/signature/tree/main/springboot-demo)
+原理：利用浏览器多窗口之间的通讯，调用者页面只需要通过window.open打开特定的签字服务地址，并通过window.addEventListener('message', someFun)添加窗口间通信监听，即可完成对接。
+具体代码可参考 [a-springboot-application](https://github.com/haust-lyb/signature/blob/main/springboot-demo/src/main/resources/templates/index.html)
 
 ## API
 
