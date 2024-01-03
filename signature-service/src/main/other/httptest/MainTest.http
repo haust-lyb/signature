@@ -1,0 +1,11 @@
+### Send POST request with json body
+POST http://127.0.0.1:1994/signature/api/submit
+Content-Type: application/json
+
+{
+  "base64": "balaba0000ka,,,",
+  "signKey": "demo3"
+}
+
+### Send POST request with json body
+GET http://127.0.0.1:1994/signature/api/getData/demo3

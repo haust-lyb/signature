@@ -1,3 +1,7 @@
-/target/
 /.idea/
 /signature.iml
+target/
+seasoning/*
+dist/
+node_modules/
+.vscode/

@@ -1,14 +1,14 @@
 version: "3"
 services:
   sign-api:
-    image: liyibo888/signature-api:v2
+    image: liyibo888/signature-api:v2.1
     healthcheck:
       test: "curl --fail --silent localhost:1994/signature/ | grep signature || exit 1"
       interval: 20s
       timeout: 5s
       retries: 5
   sign-ui:
-    image: liyibo888/signature-ui:v2
+    image: liyibo888/signature-ui:v2.1
     healthcheck:
       test: "curl --fail --silent localhost | grep body || exit 1"
       interval: 20s

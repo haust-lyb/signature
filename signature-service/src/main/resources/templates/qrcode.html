@@ -20,7 +20,7 @@
 <script type="text/javascript">
     $(function () {
         var qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: "[[${serverUrl}]][[${applicationContextPath}]]/ui/index.html?signKey=[[${signKey}]]",
+            text: window.location.protocol+"//"+window.location.host+"/signature-ui/?signKey=[[${signKey}]]",
             width: 200,
             height: 200,
             colorDark: "#000000",
@@ -29,14 +29,14 @@
         });
         window.setInterval(function () {
             $.ajax({
-                url: "[[${applicationContextPath}]]/api/hasSubmit/[[${signKey}]]",
+                url: "/signature/api/hasSubmit/[[${signKey}]]",
                 method: "GET",
                 async: false,
                 success: function (res) {
                     console.log("res", res);
                     if (res && res.indexOf("success") != -1) {
                         $.ajax({
-                            url: "[[${applicationContextPath}]]/api/getData/[[${signKey}]]",
+                            url: "/signature/api/getData/[[${signKey}]]",
                             method: "GET",
                             async: false,
                             success: function (res) {

@@ -29,96 +29,22 @@ The original reason for creating this project was that a certain project of the 
 
 ## Effect
 
-![img1.png](img1.png)
+![img1.png](document/img1.png)
 
 ## Install
 
-### Install with Docker
+### Install with Docker Compose
 
-1、创建根目录app,并在app/下创建如下目录结构和文件
+参考：https://github.com/haust-lyb/signature/tree/main/signautre-docker-compose
 
-![img2.png](img2.png)
-
-2、将下列内容分别粘贴到对应的文件中
-> docker-compose.yaml
-```
-version: "3"
-services:
-  sign-api:
-    image: liyibo888/signature-api:v2
-    healthcheck:
-      test: "curl --fail --silent localhost:1994/signature/ | grep signature || exit 1"
-      interval: 20s
-      timeout: 5s
-      retries: 5
-  sign-ui:
-    image: liyibo888/signature-ui:v2
-    healthcheck:
-      test: "curl --fail --silent localhost | grep body || exit 1"
-      interval: 20s
-      timeout: 5s
-      retries: 5
-  nginx:
-    depends_on:
-      - sign-api
-      - sign-ui
-    image: nginx
-    ports:
-      - 8090:80
-    volumes:
-      - ./conf/nginx.conf:/etc/nginx/nginx.conf:ro
-```
-
-> nginx.conf
-```
-events {
-    worker_connections 1024;
-}
-
-
-http {
-    include mime.types;
-    default_type application/octet-stream;
-
-    sendfile on;
-
-    keepalive_timeout 300;
-    server {
-        listen 80;
-        server_name localhost;
-
-
-        location / {
-            proxy_pass http://sign-ui;
-            proxy_redirect default;
-        }
-
-        location /signature/ {
-            proxy_pass http://sign-api:1994;
-            proxy_redirect default;
-        }
-
-
-        error_page 500 502 503 504 /50x.html;
-        location = /50x.html {
-            root html;
-        }
-    }
-}
-```
-
-3、使用docker compose启动
-
-进入app/文件夹，使用docker compose启动服务
-
+下载signature-docker-compose文件夹，并cd进入该文件夹，执行一下命令启动
 ```shell
 docker compose up -d
 ```
 
-4、打开浏览器测试
-
-http://127.0.0.1:8090/?signKey=asdfasdf
-
+启动后访问 http://yourip:8090/signature/
+看到signature字样说明签字服务已经启动完成了
+![it works](document/img3.png)
 
 ### build from source
 
@@ -128,7 +54,7 @@ coming soon ...
 
 ## Usage
 
-参考 [springboot-demo](https://github.com/haust-lyb/signature/tree/main/springboot-demo)
+参考 [a-springboot-application](https://github.com/haust-lyb/signature/tree/main/springboot-demo)
 
 ## API
 
