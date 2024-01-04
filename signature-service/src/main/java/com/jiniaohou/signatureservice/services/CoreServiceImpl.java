@@ -7,7 +7,6 @@ import cn.hutool.json.JSONUtil;
 import com.jiniaohou.signatureservice.base.SignDataDto;
 import com.jiniaohou.signatureservice.base.SinoBaseResDTO;
 import com.jiniaohou.signatureservice.base.StatusEnum;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
